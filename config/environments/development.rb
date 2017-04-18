@@ -27,7 +27,7 @@ Rails.application.configure do
   end
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.perform_caching = false
 
@@ -48,6 +48,16 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: 'smtp.sendgrid.net',
+    port: 587,
+    enable_starttls_auto: true,
+    user_name: 'railsroger@gmail.com',
+    password: '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',
+    authentication: 'plain'
+  }
 
 
   # Use an evented file watcher to asynchronously detect changes in source code,
