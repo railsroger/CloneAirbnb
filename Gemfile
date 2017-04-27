@@ -30,6 +30,7 @@ gem 'omniauth-facebook', '~> 4.0'
 gem 'omniauth-google-oauth2', '~> 0.4.1'
 gem "paperclip"
 gem 'geocoder', '~> 1.4', '>= 1.4.3'
+gem 'jquery-ui-rails'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
