@@ -55,7 +55,7 @@ Rails.application.configure do
     port: 587,
     enable_starttls_auto: true,
     user_name: 'railsroger@gmail.com',
-    password: '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',
+    password: '',
     authentication: 'plain'
   }
 
