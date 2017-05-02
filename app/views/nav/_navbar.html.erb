@@ -38,11 +38,15 @@
             <% end %>
 
             <li>
-              <a href="#"><i class="fa fa-envelope-o fa-lg" aria-hidden="true"></i>Message</a>
+              <%= link_to conversations_path do %>
+                <i class="fa fa-envelope-o"></i>Message
+              <% end %>
             </li>
 
             <li>
-              <a href="#"><i class="fa fa-home fa-lg" aria-hidden="true"></i>Become a Host</a>
+              <%= link_to new_room_path do %>
+                <i class="fa fa-home fa-lg"></i>Become a Host
+              <% end %>
             </li>
             
             
