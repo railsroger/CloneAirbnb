@@ -8,6 +8,12 @@ class RoomsController < ApplicationController
 
   def show
     @photos = @room.photos
+
+    @booked = Reversation.where("room_id = ? AND user_id = ?", @room_id, current_user.id).present? if current_user
+  
+    @reviews = @room.reviews
+
+    @hasReview = @reviews.find_by(user_id: current_user.id) if current_user
   end
 
   def new
