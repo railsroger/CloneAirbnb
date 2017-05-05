@@ -1,5 +1,5 @@
 class ReservationsController < ApplicationController
-	before_action :authenticate_user!
+	before_action :authenticate_user!, except: [:notify]
 
 	def preload
 		room = Room.find(params[:room_id])
@@ -21,18 +21,47 @@ class ReservationsController < ApplicationController
 	end
 
 	def create
-		room = Room.find(params[:room_id])
-			if current_user == room.user
-				redirect_to room, notice: "You cant reserve your own room!"
-			else
-				@reservation = current_user.reservations.create(reservation_params)
+		@reservation = current_user.reservations.create(reservation_params)
+		
+		if @reservation
+			# send request to PayPal
+			values = {
+				business: 'railsroger-facilitator@gmail.com',
+				cmd: '_xclick',
+				upload: 1,
+				notify_url: ' http://2684012b.ngrok.io/notify',
+				amount: @reservation.total,
+				item_name: @reservation.room.listing_name,
+				item_number: @reservation.id,
+				quantity: '1',
+				return: ' http://2684012b.ngrok.io/your_trips'
+			}
 
-				redirect_to @reservation.room, notice: "Your reservation has been created..."
-			end
+			redirect_to "https://www.sandbox.paypal.com/cgi-bin/webscr?" + values.to_query
+		else
+			redirect_to @reservation.room, alert: "Oops, something went wrong..."
+		end
 	end
 
+	protect_from_forgery except: [:notify]
+	def notify
+		params.permit!
+		status = params[:payment_status]
+
+		reservation = Reservation.find(params[:item_number])
+
+		if status = "Completed"
+			reservation.update_attributes status: true
+		else
+			reservation.destroy
+		end
+
+		render nothing: true
+	end
+
+	protect_from_forgery except: [:your_trips]
 	def your_trips
-		@trips = current_user.reservations
+		@trips = current_user.reservations.where("status = ?", true)
 	end
 
 	def your_reservations
