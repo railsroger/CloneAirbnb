@@ -11,7 +11,7 @@
 			</div>
 			<div class="col-md-11">
 				<div>
-					<strong><%= r.user.fullname %> <div id="stars_<%= r.id %>"></strong>
+					<strong><%= r.user.fullname %> <div id="stars_<%= r.id %>"></div></strong>
 					<span class="pull-right">
 						<%= link_to "Remove My Review", [@room, r], method: :delete, data: {confirm: "Are you sure?"} if current_user && current_user == r.user %>
 					</span>
