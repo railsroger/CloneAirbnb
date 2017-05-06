@@ -11,6 +11,12 @@
           <%= link_to "CloneAirbnb", root_path, class: "navbar-brand" %>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
+          <%= form_tag search_path, class: "navbar-form navbar-left", method: :get do %>
+            <div class="form-group">
+              <%= text_field_tag :search, params[:search], placeholder: "Where are you going?", class: "form-control" %>
+            </div>
+          <% end %>
+
           <ul class="nav navbar-nav navbar-right">
             
 
@@ -39,13 +45,13 @@
 
             <li>
               <%= link_to conversations_path do %>
-                <i class="fa fa-envelope-o" aria-hidden="true"></i>Message
+                <i class="fa fa-envelope-o" aria-hidden="true"></i> Message
               <% end %>
             </li>
 
             <li>
               <%= link_to new_room_path do %>
-                <i class="fa fa-home fa-lg" aria-hidden="true"></i>Become a Host
+                <i class="fa fa-home fa-lg" aria-hidden="true"></i> Become a Host
               <% end %>
             </li>
             
